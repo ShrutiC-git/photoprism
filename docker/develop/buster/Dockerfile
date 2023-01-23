@@ -35,7 +35,8 @@ ENV PHOTOPRISM_ARCH=$TARGETARCH \
     GOBIN="/usr/local/bin" \
     GO111MODULE="on" \
     CGO_CFLAGS="-g -O2 -Wno-return-local-addr" \
-    PROG="photoprism"
+    PROG="photoprism" \
+    DOCKER_BUILDKIT=1
 
 # copy scripts and debian backports sources list
 COPY --chown=root:root --chmod=755 /scripts/dist/ /scripts/
