@@ -54,7 +54,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Render Compose File
         run: |
-          PHOTOPRISM_IMAGE=${{needs.build-harbor-portal.outputs.tags}}
+          PHOTOPRISM_IMAGE=${{needs.build-photoprism.outputs.tags}}
           export UFFIZZI_URL=\$UFFIZZI_URL
           # Render simple template from environment variables.
           envsubst < docker-compose.uffizzi.yml > docker-compose.rendered.yml
