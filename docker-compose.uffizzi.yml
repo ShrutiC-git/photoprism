@@ -125,7 +125,7 @@ services:
     security_opt: # see https://github.com/MariaDB/mariadb-docker/issues/434#issuecomment-1136151239
       - seccomp:unconfined
       - apparmor:unconfined
-    command: mysqld --innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120
+    # command: mysqld --innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120
     ## Never store database files on an unreliable device such as a USB flash drive, an SD card, or a shared network folder:
     volumes:
       - "database:/var/lib/mysql" # DO NOT REMOVE
@@ -137,19 +137,19 @@ services:
       MARIADB_PASSWORD: "insecure"
       MARIADB_ROOT_PASSWORD: "insecure"
 
-  ## Watchtower upgrades services automatically (optional)
-  ## see https://docs.photoprism.app/getting-started/updates/#watchtower
-  ## activate via "COMPOSE_PROFILES=update docker compose up -d"
-  watchtower:
-    restart: unless-stopped
-    image: containrrr/watchtower
-    profiles: ["update"]
-    environment:
-      WATCHTOWER_CLEANUP: "true"
-      WATCHTOWER_POLL_INTERVAL: 7200 # checks for updates every two hours
-    # volumes:
-    #   - "/var/run/docker.sock:/var/run/docker.sock"
-    #   - "~/.docker/config.json:/config.json" # optional, for authentication if you have a Docker Hub account
+  # ## Watchtower upgrades services automatically (optional)
+  # ## see https://docs.photoprism.app/getting-started/updates/#watchtower
+  # ## activate via "COMPOSE_PROFILES=update docker compose up -d"
+  # watchtower:
+  #   restart: unless-stopped
+  #   image: containrrr/watchtower
+  #   profiles: ["update"]
+  #   environment:
+  #     WATCHTOWER_CLEANUP: "true"
+  #     WATCHTOWER_POLL_INTERVAL: 7200 # checks for updates every two hours
+  #   # volumes:
+  #   #   - "/var/run/docker.sock:/var/run/docker.sock"
+  #   #   - "~/.docker/config.json:/config.json" # optional, for authentication if you have a Docker Hub account
       
 volumes:
   storage: 
