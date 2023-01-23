@@ -31,11 +31,18 @@ x-uffizzi:
   ingress:
     service: photoprism
     port: 2342
+  continuous_previews:
+    deploy_preview_when_pull_request_is_opened: true
+    delete_preview_when_pull_request_is_closed: true
+    share_to_github: true
 
 services:
   photoprism:
     ## Use photoprism/photoprism:preview for testing preview builds:
     image: "${PHOTOPRISM_IMAGE}"
+    build:
+      context: .
+      dockerfile: ./docker/develop/buster/Dockerfile
     depends_on:
       - mariadb
     ## Don't enable automatic restarts until PhotoPrism has been properly configured and tested!
