@@ -39,9 +39,9 @@ ENV PHOTOPRISM_ARCH=$TARGETARCH \
     DOCKER_BUILDKIT="1"
 
 # copy scripts and debian backports sources list
-COPY --chown=root:root --chmod=755 /scripts/dist/ /scripts/
-COPY --chown=root:root --chmod=644 /docker/develop/buster/sources.list /etc/apt/sources.list.d/buster.list
-COPY --chown=root:root --chmod=644 /.my.cnf /etc/my.cnf
+COPY --chown=root:root  /scripts/dist/ /scripts/
+COPY --chown=root:root  /docker/develop/buster/sources.list /etc/apt/sources.list.d/buster.list
+COPY --chown=root:root  /.my.cnf /etc/my.cnf
 
 # update image and install build dependencies
 RUN echo 'APT::Acquire::Retries "3";' > /etc/apt/apt.conf.d/80retries && \
