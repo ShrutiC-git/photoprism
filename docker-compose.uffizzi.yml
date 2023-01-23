@@ -32,7 +32,6 @@ x-uffizzi:
     service: photoprism
     port: 2342
 
-
 services:
   photoprism:
     ## Use photoprism/photoprism:preview for testing preview builds:
