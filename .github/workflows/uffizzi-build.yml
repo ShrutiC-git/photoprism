@@ -55,6 +55,7 @@ jobs:
       - name: Render Compose File
         run: |
           PHOTOPRISM_IMAGE=${{needs.build-photoprism.outputs.tags}}
+          export PHOTOPRISM_IMAGE
           export UFFIZZI_URL=\$UFFIZZI_URL
           # Render simple template from environment variables.
           envsubst < docker-compose.uffizzi.yml > docker-compose.rendered.yml
