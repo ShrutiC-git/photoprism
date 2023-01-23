@@ -26,6 +26,13 @@ version: '3.5'
 # All commands may have to be prefixed with "sudo" when not running as root.
 # This will point the home directory shortcut ~ to /root in volume mounts.
 
+# uffizzi integration
+x-uffizzi:
+  ingress:
+    service: photoprism
+    port: 2342
+
+
 services:
   photoprism:
     ## Use photoprism/photoprism:preview for testing preview builds:
@@ -133,10 +140,12 @@ services:
     environment:
       WATCHTOWER_CLEANUP: "true"
       WATCHTOWER_POLL_INTERVAL: 7200 # checks for updates every two hours
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "~/.docker/config.json:/config.json" # optional, for authentication if you have a Docker Hub account
+    # volumes:
+    #   - "/var/run/docker.sock:/var/run/docker.sock"
+    #   - "~/.docker/config.json:/config.json" # optional, for authentication if you have a Docker Hub account
       
 volumes:
-  storage:  
-  database:    
+  storage: 
+    driver: local 
+  database: 
+    driver: local   
