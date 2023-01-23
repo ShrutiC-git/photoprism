@@ -45,13 +45,6 @@ services:
       dockerfile: ./docker/photoprism/buster/Dockerfile
     depends_on:
       - mariadb
-    ## Don't enable automatic restarts until PhotoPrism has been properly configured and tested!
-    ## If the service gets stuck in a restart loop, this points to a memory, filesystem, network, or database issue:
-    ## https://docs.photoprism.app/getting-started/troubleshooting/#fatal-server-errors
-    # restart: unless-stopped
-    # security_opt:
-    #   - seccomp:unconfined
-    #   - apparmor:unconfined
     ports:
       - "2342:2342" # HTTP port (host:container)
     environment:
@@ -106,18 +99,21 @@ services:
     #  - "/dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools"
     #  - "/dev/video11:/dev/video11"                 # Video4Linux Video Encode Device (h264_v4l2m2m)
     working_dir: "/photoprism" # do not change or remove
-    entrypoint: /bin/sh
-    command: 
-      - "-c"
-      - "PHOTOPRISM_SITE_URL=$$UFFIZZI_URL:2342/ /scripts/entrypoint.sh && /opt/photoprism/bin/photoprism start"
+    # entrypoint: /bin/sh
+    # command: 
+    #   - "-c"
+    #   - "PHOTOPRISM_SITE_URL=$$UFFIZZI_URL:2342/ /scripts/entrypoint.sh && /opt/photoprism/bin/photoprism start"
     ## Storage Folders: "~" is a shortcut for your home directory, "." for the current directory
     volumes:
       # "/host/folder:/photoprism/folder"                # Example
-      # - "~/Pictures:/photoprism/originals"               # Original media files (DO NOT REMOVE)
+      - "~/pictures:/photoprism/originals"               # Original media files (DO NOT REMOVE)
       # - "/example/family:/photoprism/originals/family" # *Additional* media folders can be mounted like this
       # - "~/Import:/photoprism/import"                  # *Optional* base folder from which files can be imported to originals
       - "storage:/photoprism/storage"                  # *Writable* storage folder for cache, database, and sidecar files (DO NOT REMOVE)
-
+    deploy:
+      resources:
+        limits:
+          memory: 4000M
 
   ## Database Server (recommended)
   ## see https://docs.photoprism.app/getting-started/faq/#should-i-use-sqlite-mariadb-or-mysql
