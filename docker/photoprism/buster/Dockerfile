@@ -92,9 +92,9 @@ ENV PHOTOPRISM_ARCH=$TARGETARCH \
     PHOTOPRISM_AUTO_IMPORT=300
 
 # Copy dist files, scripts, and debian backports sources list.
-COPY --from=build --chown=root:root --chmod=755 /opt/photoprism/ /opt/photoprism
-COPY --chown=root:root --chmod=755 /scripts/dist/ /scripts/
-COPY --chown=root:root --chmod=644 /docker/develop/buster/sources.list /etc/apt/sources.list.d/buster.list
+COPY --from=build --chown=root:root  /opt/photoprism/ /opt/photoprism
+COPY --chown=root:root  /scripts/dist/ /scripts/
+COPY --chown=root:root  /docker/develop/buster/sources.list /etc/apt/sources.list.d/buster.list
 
 # Update base image and add dependencies.
 RUN echo 'APT::Acquire::Retries "3";' > /etc/apt/apt.conf.d/80retries && \
