@@ -37,9 +37,9 @@ x-uffizzi:
     share_to_github: true
 
 services:
+  
   photoprism:
     ## Use photoprism/photoprism:preview for testing preview builds:
-    image: "${PHOTOPRISM_IMAGE}"
     build:
       context: .
       dockerfile: ./docker/photoprism/buster/Dockerfile
@@ -77,31 +77,7 @@ services:
       PHOTOPRISM_SITE_AUTHOR: ""                     # meta site author
       ## Run/install on first startup (options: update https gpu tensorflow davfs clitools clean):
       PHOTOPRISM_INIT: "https gpu tensorflow"
-      ## Hardware Video Transcoding:
-      # PHOTOPRISM_FFMPEG_ENCODER: "software"        # FFmpeg encoder ("software", "intel", "nvidia", "apple", "raspberry")
-      # PHOTOPRISM_FFMPEG_BITRATE: "32"              # FFmpeg encoding bitrate limit in Mbit/s (default: 50)
-      ## Run as a non-root user after initialization (supported: 0, 33, 50-99, 500-600, and 900-1200):
-      # PHOTOPRISM_UID: 1000
-      # PHOTOPRISM_GID: 1000
-      # PHOTOPRISM_UMASK: 0000
-    ## Start as non-root user before initialization (supported: 0, 33, 50-99, 500-600, and 900-1200):
-    # user: "1000:1000"
-    ## Share hardware devices with FFmpeg and TensorFlow (optional):
-    # devices:
-    #  - "/dev/dri:/dev/dri"                         # Intel QSV
-    #  - "/dev/nvidia0:/dev/nvidia0"                 # Nvidia CUDA
-    #  - "/dev/nvidiactl:/dev/nvidiactl"
-    #  - "/dev/nvidia-modeset:/dev/nvidia-modeset"
-    #  - "/dev/nvidia-nvswitchctl:/dev/nvidia-nvswitchctl"
-    #  - "/dev/nvidia-uvm:/dev/nvidia-uvm"
-    #  - "/dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools"
-    #  - "/dev/video11:/dev/video11"                 # Video4Linux Video Encode Device (h264_v4l2m2m)
     working_dir: "/photoprism" # do not change or remove
-    # entrypoint: /bin/sh
-    # command: 
-    #   - "-c"
-    #   - "PHOTOPRISM_SITE_URL=$$UFFIZZI_URL:2342/ /scripts/entrypoint.sh && /opt/photoprism/bin/photoprism start"
-    ## Storage Folders: "~" is a shortcut for your home directory, "." for the current directory
     volumes:
       # "/host/folder:/photoprism/folder"                # Example
       - "~/pictures:/photoprism/originals"               # Original media files (DO NOT REMOVE)
@@ -120,9 +96,6 @@ services:
     ## https://docs.photoprism.app/getting-started/troubleshooting/#fatal-server-errors
     restart: unless-stopped
     image: mariadb:10.10
-    security_opt: # see https://github.com/MariaDB/mariadb-docker/issues/434#issuecomment-1136151239
-      - seccomp:unconfined
-      - apparmor:unconfined
     # command: mysqld --innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120
     ## Never store database files on an unreliable device such as a USB flash drive, an SD card, or a shared network folder:
     volumes:
@@ -135,19 +108,6 @@ services:
       MARIADB_PASSWORD: "insecure"
       MARIADB_ROOT_PASSWORD: "insecure"
 
-  # ## Watchtower upgrades services automatically (optional)
-  # ## see https://docs.photoprism.app/getting-started/updates/#watchtower
-  # ## activate via "COMPOSE_PROFILES=update docker compose up -d"
-  # watchtower:
-  #   restart: unless-stopped
-  #   image: containrrr/watchtower
-  #   profiles: ["update"]
-  #   environment:
-  #     WATCHTOWER_CLEANUP: "true"
-  #     WATCHTOWER_POLL_INTERVAL: 7200 # checks for updates every two hours
-  #   # volumes:
-  #   #   - "/var/run/docker.sock:/var/run/docker.sock"
-  #   #   - "~/.docker/config.json:/config.json" # optional, for authentication if you have a Docker Hub account
       
 volumes:
   storage: 
