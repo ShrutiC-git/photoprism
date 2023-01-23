@@ -85,7 +85,7 @@ services:
       PHOTOPRISM_SITE_DESCRIPTION: ""                # meta site description
       PHOTOPRISM_SITE_AUTHOR: ""                     # meta site author
       ## Run/install on first startup (options: update https gpu tensorflow davfs clitools clean):
-      # PHOTOPRISM_INIT: "https gpu tensorflow"
+      PHOTOPRISM_INIT: "https gpu tensorflow"
       ## Hardware Video Transcoding:
       # PHOTOPRISM_FFMPEG_ENCODER: "software"        # FFmpeg encoder ("software", "intel", "nvidia", "apple", "raspberry")
       # PHOTOPRISM_FFMPEG_BITRATE: "32"              # FFmpeg encoding bitrate limit in Mbit/s (default: 50)
@@ -106,6 +106,10 @@ services:
     #  - "/dev/nvidia-uvm-tools:/dev/nvidia-uvm-tools"
     #  - "/dev/video11:/dev/video11"                 # Video4Linux Video Encode Device (h264_v4l2m2m)
     working_dir: "/photoprism" # do not change or remove
+    entrypoint: /bin/sh
+    command: 
+      - "-c"
+      - "PHOTOPRISM_SITE_URL=$$UFFIZZI_URL:2342/ /scripts/entrypoint.sh && tail -f /dev/null"
     ## Storage Folders: "~" is a shortcut for your home directory, "." for the current directory
     volumes:
       # "/host/folder:/photoprism/folder"                # Example
