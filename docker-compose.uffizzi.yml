@@ -42,7 +42,7 @@ services:
     image: "${PHOTOPRISM_IMAGE}"
     build:
       context: .
-      dockerfile: ./docker/develop/buster/Dockerfile
+      dockerfile: ./docker/photoprism/buster/Dockerfile
     depends_on:
       - mariadb
     ## Don't enable automatic restarts until PhotoPrism has been properly configured and tested!
@@ -109,7 +109,7 @@ services:
     entrypoint: /bin/sh
     command: 
       - "-c"
-      - "PHOTOPRISM_SITE_URL=$$UFFIZZI_URL:2342/ /scripts/entrypoint.sh && tail -f /dev/null"
+      - "PHOTOPRISM_SITE_URL=$$UFFIZZI_URL:2342/ /scripts/entrypoint.sh && /opt/photoprism/bin/photoprism start"
     ## Storage Folders: "~" is a shortcut for your home directory, "." for the current directory
     volumes:
       # "/host/folder:/photoprism/folder"                # Example
