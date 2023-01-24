@@ -11,7 +11,7 @@ ARG TARGETARCH
 ARG BUILD_TAG
 
 # Copy source to image.
-WORKDIR "/go/src/github.com/photoprism/photoprism"
+WORKDIR "/photoprism"
 COPY . .
 
 # Build app.
