@@ -98,7 +98,7 @@ services:
       # - "/example/family:/photoprism/originals/family" # *Additional* media folders can be mounted like this
       # - "~/Import:/photoprism/import"                  # *Optional* base folder from which files can be imported to originals
       - "storage:/photoprism/storage"                  # *Writable* storage folder for cache, database, and sidecar files (DO NOT REMOVE)
-      - "/pictures:/photoprism/originals"               # Original media files (DO NOT REMOVE)
+      - "./pictures:/photoprism/originals"               # Original media files (DO NOT REMOVE)
     deploy:
       resources:
         limits:
