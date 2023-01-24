@@ -11,7 +11,7 @@ ARG TARGETARCH
 ARG BUILD_TAG
 
 # Copy source to image.
-WORKDIR "/photoprism"
+WORKDIR "/go/src/github.com/photoprism/photoprism"
 COPY . .
 
 # Build app.
@@ -46,7 +46,7 @@ ENV PHOTOPRISM_ARCH=$TARGETARCH \
     DEBIAN_FRONTEND="noninteractive" \
     TF_CPP_MIN_LOG_LEVEL="2" \
     PROG="photoprism" \
-    PHOTOPRISM_ASSETS_PATH="/photoprism/assets" \
+    PHOTOPRISM_ASSETS_PATH="/opt/photoprism/assets" \
     PHOTOPRISM_IMPORT_PATH="/photoprism/import" \
     PHOTOPRISM_ORIGINALS_PATH="/photoprism/originals" \
     PHOTOPRISM_STORAGE_PATH="/photoprism/storage" \
@@ -58,14 +58,15 @@ ENV PHOTOPRISM_ARCH=$TARGETARCH \
     PHOTOPRISM_READONLY="false" \
     PHOTOPRISM_UPLOAD_NSFW="true" \
     PHOTOPRISM_DETECT_NSFW="false" \
-    PHOTOPRISM_EXPERIMENTAL="true" \
+    PHOTOPRISM_EXPERIMENTAL="false" \
+    PHOTOPRISM_SITE_URL="http://127.0.0.1:5432/" \
     PHOTOPRISM_SITE_CAPTION="AI-Powered Photos App" \
     PHOTOPRISM_SITE_DESCRIPTION="" \
     PHOTOPRISM_SITE_AUTHOR="" \
     PHOTOPRISM_HTTP_HOST="0.0.0.0" \
     PHOTOPRISM_HTTP_PORT=2342 \
     PHOTOPRISM_DATABASE_DRIVER="postgres" \
-    PHOTOPRISM_DATABASE_SERVER="postgres://localhost:5432" \
+    PHOTOPRISM_DATABASE_SERVER="postgres://photoprism:photoprism@localhost:5432" \
     PHOTOPRISM_DATABASE_NAME="photoprism" \
     PHOTOPRISM_DATABASE_USER="photoprism" \
     PHOTOPRISM_DATABASE_PASSWORD="" \
