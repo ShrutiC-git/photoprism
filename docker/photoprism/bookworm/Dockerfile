@@ -89,7 +89,7 @@ ENV PHOTOPRISM_ARCH=$TARGETARCH \
     PHOTOPRISM_AUTO_IMPORT=300
 
 # Copy scripts.
-COPY --chown=root:root --chmod=755 /scripts/dist/ /scripts/
+COPY --chown=root:root /scripts/dist/ /scripts/
 
 # Update pre-installed packages.
 RUN apt-get update && \
@@ -103,7 +103,7 @@ WORKDIR /photoprism
 EXPOSE 2342 2443
 
 # copy dist files
-COPY --from=build --chown=root:root --chmod=755 /opt/photoprism/ /opt/photoprism
+COPY --from=build --chown=root:root  /opt/photoprism/ /opt/photoprism
 
 # Declare container entrypoint script.
 ENTRYPOINT ["/scripts/entrypoint.sh"]

@@ -42,7 +42,7 @@ services:
     ## Use photoprism/photoprism:preview for testing preview builds:
     build:
       context: .
-      dockerfile: ./docker/photoprism/buster/Dockerfile
+      dockerfile: ./docker/photoprism/bookworm/Dockerfile
     # image: photoprism/photoprism:latest
     ports:
       - "2342:2342" # HTTP port (host:container)
