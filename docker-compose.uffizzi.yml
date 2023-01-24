@@ -114,7 +114,6 @@ services:
       POSTGRES_USER: photoprism
       POSTGRES_PASSWORD: photoprism
 
-  
 volumes:
   storage: 
     driver: local 
